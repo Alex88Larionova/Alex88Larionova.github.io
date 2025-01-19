@@ -1,3 +1,13 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const img = new Image();
+    img.src = 'background.jpg';
+    
+    img.onload = function() {
+        const homeSection = document.getElementById('home');
+        homeSection.classList.add('loaded');
+    };
+});
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
