@@ -1,12 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const img = new Image();
-    img.src = 'background.jpg';
+    // New loading logic
+    const assetsToLoad = [
+        { src: 'background.jpg', type: 'image' },
+        { src: 'avatar_2.jpg', type: 'image' }
+    ];
     
-    img.onload = function() {
-        const homeSection = document.getElementById('home');
-        homeSection.classList.add('loaded');
-    };
-});
+    let loadedAssets = 0;
+    
+    function checkAllAssetsLoaded() {
+        loadedAssets++;
+        if (loadedAssets === assetsToLoad.length) {
+            document.body.classList.add('loaded');
+            document.getElementById('home').classList.add('loaded');
+        }
+    }
+    
+    assetsToLoad.forEach(asset => {
+        if (asset.type === 'image') {
+            const img = new Image();
+            img.src = asset.src;
+            img.onload = checkAllAssetsLoaded;
+            img.onerror = checkAllAssetsLoaded;
+        }
+    });
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('nav a').forEach(anchor => {
@@ -58,4 +74,4 @@ projects.forEach(project => {
         <a href="${project.link}">View Project</a>
     `;
     projectsGrid.appendChild(projectCard);
-});
+})})
